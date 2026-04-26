@@ -75,7 +75,7 @@ const SignupPage = () => {
 		if (role !== "STUDENT") return;
 		await authClient.signIn.social({
 			provider: "google",
-			callbackURL: "http://localhost:3000",
+			callbackURL: "https://fortepath.vercel.app",
 		});
 	};
 

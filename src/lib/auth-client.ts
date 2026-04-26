@@ -1,9 +1,11 @@
-import { inferAdditionalFields } from "better-auth/client/plugins";
 import { createAuthClient } from "better-auth/react";
+import { inferAdditionalFields } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
-	baseURL: "http://localhost:8080",
-	basePath: "/api/v1/auth",
+	baseURL: `${process.env.NEXT_PUBLIC_API_URL}/auth`,
+	fetchOptions: {
+		credentials: "include",
+	},
 	plugins: [
 		inferAdditionalFields({
 			user: {

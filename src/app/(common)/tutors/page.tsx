@@ -33,7 +33,6 @@ const Tutors = async ({ searchParams }: Props) => {
 	// Extract search and category from query params
 	const search = (await searchParams).search ?? "";
 	const category = (await searchParams).category ?? "";
-	console.log(search, category);
 
 	// Build URL with query params
 	const urlParams = new URLSearchParams();
