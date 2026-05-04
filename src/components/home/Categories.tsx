@@ -16,7 +16,7 @@ export const Categories = () => {
 	const fetchCategories = async () => {
 		try {
 			const res = await fetch(
-				`${process.env.NEXT_PUBLIC_API_URL}/categories?page=1&limit=12`,
+				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories?page=1&limit=12`,
 			);
 			const resJson = await res.json();
 			setCategories(resJson.data);

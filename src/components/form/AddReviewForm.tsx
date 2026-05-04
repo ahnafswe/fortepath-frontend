@@ -36,7 +36,7 @@ export const AddReviewForm = ({
 		setIsLoading(true);
 
 		// Create review
-		const reviewRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews`, {
+		const reviewRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/reviews`, {
 			method: "POST",
 			credentials: "include",
 			headers: { "Content-Type": "application/json" },

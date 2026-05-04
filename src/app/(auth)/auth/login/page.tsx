@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient, signInWithGoogle } from "@/lib/auth-client";
 import { Button, Form } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -48,14 +48,6 @@ const LoginPage = () => {
 		setIsLoading(false);
 		// Redirect to Home page
 		router.push("/");
-	};
-
-	// Handler for Google login
-	const handleGoogleLogin = async () => {
-		await authClient.signIn.social({
-			provider: "google",
-			callbackURL: "https://fortepath.vercel.app",
-		});
 	};
 
 	return (
@@ -134,7 +126,7 @@ const LoginPage = () => {
 						type="button"
 						fullWidth
 						className="text-lg h-10 flex items-center gap-3 bg-primary-600 hover:bg-primary-600/90 transition duration-200"
-						onClick={handleGoogleLogin}
+						onClick={signInWithGoogle}
 					>
 						<TbBrandGoogle className="size-5" />
 						Continue with Google

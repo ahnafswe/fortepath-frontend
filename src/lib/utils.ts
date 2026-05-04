@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 export const getServerSession = async () => {
 	const cookieStore = await cookies();
 
-	const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/get-session`, {
+	const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/auth/get-session`, {
 		headers: {
 			Cookie: cookieStore.toString(),
 		},

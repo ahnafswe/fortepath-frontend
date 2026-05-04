@@ -39,7 +39,7 @@ export const CreateBookingForm = ({
 		setIsLoading(true);
 
 		// Create booking
-		const bookingRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
+		const bookingRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/bookings`, {
 			method: "POST",
 			credentials: "include",
 			headers: { "Content-Type": "application/json" },

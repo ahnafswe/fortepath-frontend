@@ -27,7 +27,7 @@ const AdminBookings = async () => {
 	const cookieStore = cookies();
 
 	// Fetch and parse bookings
-	const bookingsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bookings`, {
+	const bookingsRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/bookings`, {
 		headers: {
 			Cookie: (await cookieStore).toString(),
 		},

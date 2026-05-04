@@ -10,7 +10,7 @@ const TutorProfile = async () => {
 	} = await sessionData;
 
 	// Fetch tutor profile
-	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`, {
+	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors/${id}`, {
 		cache: "no-store",
 	});
 	const { data: tutor } = await tutorRes.json();

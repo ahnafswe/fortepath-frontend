@@ -43,7 +43,7 @@ const Tutors = async ({ searchParams }: Props) => {
 
 	// Fetch tutors and don't cache it
 	const tutorsRes = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/tutors?${urlParams.toString()}`,
+		`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors?${urlParams.toString()}`,
 		{
 			cache: "no-store",
 		},
@@ -54,7 +54,7 @@ const Tutors = async ({ searchParams }: Props) => {
 
 	// Fetch categories and cache it with time revalidation
 	const categoriesRes = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/categories?page=1&limit=100`,
+		`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories?page=1&limit=100`,
 		{
 			next: {
 				revalidate: 3600,

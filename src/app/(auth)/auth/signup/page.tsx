@@ -1,6 +1,6 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient, signInWithGoogle } from "@/lib/auth-client";
 import { Button, Form, Label, Radio, RadioGroup } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -51,7 +51,7 @@ const SignupPage = () => {
 
 		// If role is Tutor, create tutor profile
 		if (role === "TUTOR") {
-			await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors`, {
+			await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
@@ -68,15 +68,6 @@ const SignupPage = () => {
 
 		// Redirect to Login page
 		router.push("/auth/login");
-	};
-
-	// Handler for Google signup
-	const handleGoogleSignup = async () => {
-		if (role !== "STUDENT") return;
-		await authClient.signIn.social({
-			provider: "google",
-			callbackURL: "https://fortepath.vercel.app",
-		});
 	};
 
 	return (
@@ -298,7 +289,7 @@ const SignupPage = () => {
 							type="button"
 							fullWidth
 							className="text-lg h-10 flex items-center gap-3 bg-primary-600 hover:bg-primary-600/90 transition duration-200"
-							onClick={handleGoogleSignup}
+							onClick={signInWithGoogle}
 						>
 							<TbBrandGoogle className="size-5" />
 							Continue with Google

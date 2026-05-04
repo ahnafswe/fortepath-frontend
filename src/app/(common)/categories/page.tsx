@@ -9,7 +9,7 @@ export interface Category {
 
 const CategoriesPage = async () => {
 	// Fetch categories with cache and ISR
-	const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+	const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories`, {
 		next: {
 			revalidate: 3600,
 		},

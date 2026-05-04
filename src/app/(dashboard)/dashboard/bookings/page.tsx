@@ -28,7 +28,7 @@ const StudentBookings = async () => {
 
 	// Fetch and parse student's bookings
 	const bookingsRes = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/bookings?studentId=${user?.id}`,
+		`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/bookings?studentId=${user?.id}`,
 		{
 			headers: {
 				Cookie: (await cookieStore).toString(),

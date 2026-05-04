@@ -13,7 +13,7 @@ const AdminCategories = async () => {
 	const cookieStore = cookies();
 
 	// Fetch and parse categories
-	const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {
+	const categoriesRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories`, {
 		headers: {
 			Cookie: (await cookieStore).toString(),
 		},

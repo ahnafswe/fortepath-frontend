@@ -18,7 +18,7 @@ const AdminUsers = async () => {
 	const cookieStore = cookies();
 
 	// Fetch and parse users
-	const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
+	const usersRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/users`, {
 		headers: {
 			Cookie: (await cookieStore).toString(),
 		},

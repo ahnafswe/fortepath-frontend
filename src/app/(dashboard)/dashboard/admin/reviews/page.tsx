@@ -24,7 +24,7 @@ const AdminReviews = async () => {
 	const cookieStore = cookies();
 
 	// Fetch and parse reviews
-	const reviewsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reviews`, {
+	const reviewsRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/reviews`, {
 		headers: {
 			Cookie: (await cookieStore).toString(),
 		},

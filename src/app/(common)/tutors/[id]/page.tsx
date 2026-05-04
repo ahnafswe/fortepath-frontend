@@ -52,7 +52,7 @@ const TutorDetailsPage = async ({ params }: Props) => {
 	const { user } = await sessionData;
 
 	// Fetch the tutor and cache it
-	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tutors/${id}`, {
+	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors/${id}`, {
 		cache: "no-store",
 	});
 	const { data: tutor }: { data: TutorProfile } = await tutorRes.json();
