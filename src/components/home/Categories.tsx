@@ -19,6 +19,7 @@ export const Categories = () => {
 				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories?page=1&limit=12`,
 			);
 			const resJson = await res.json();
+			console.log(resJson);
 			setCategories(resJson.data);
 		} catch (err) {
 			console.error("Unable to fetch categories:", err);
@@ -28,6 +29,7 @@ export const Categories = () => {
 	};
 	// Effect
 	useEffect(() => {
+		// eslint-disable-next-line react-hooks/set-state-in-effect
 		fetchCategories();
 	}, []);
 	return (
@@ -35,7 +37,7 @@ export const Categories = () => {
 			<div className="text-center mb-12">
 				{/* Header */}
 				<h2 className="text-3xl md:text-4xl font-bold text-primary-100 mb-3">
-					Featured Categories
+					Learning Categories
 				</h2>
 				{/* Description */}
 				<p className="text-zinc-300">
