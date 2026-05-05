@@ -87,12 +87,14 @@ export const Navbar = async () => {
 									{user.role !== "ADMIN" && (
 										<Dropdown.Item
 											href={`/dashboard${user.role !== "STUDENT" ? `/${user.role.toLowerCase()}` : ""}/profile`}
+											className="text-base hover:bg-zinc-800 transition-colors duration-200 rounded-xl"
 										>
 											Profile
 										</Dropdown.Item>
 									)}
 									<Dropdown.Item
 										href={`/dashboard${user.role !== "STUDENT" ? `/${user.role.toLowerCase()}` : ""}`}
+										className="text-base hover:bg-zinc-800 transition-colors duration-200 rounded-xl"
 									>
 										Dashboard
 									</Dropdown.Item>
