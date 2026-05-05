@@ -55,7 +55,7 @@ export const Hero = () => {
 
 			{/* Texts */}
 			<div className="space-y-6 text-center max-w-4xl px-4">
-				<h1 className="text-3xl md:text-5xl lg:text-7xl font-bold text-primary-100 leading-[1.1] tracking-tight">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-100 leading-[1.1] tracking-tight">
 					Connect with Expert Tutors <br className="hidden md:block" />
 					<span className="text-primary-400">Learn Anything</span>
 				</h1>
