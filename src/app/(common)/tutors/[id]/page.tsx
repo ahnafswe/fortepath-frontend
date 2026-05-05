@@ -44,20 +44,15 @@ type Props = {
 };
 
 const TutorDetailsPage = async ({ params }: Props) => {
-	// Extract Id from URL params
 	const { id } = await params;
-
-	// Fetch the student
 	const sessionData = await getServerSession();
 	const { user } = await sessionData;
 
-	// Fetch the tutor and cache it
 	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors/${id}`, {
 		cache: "no-store",
 	});
 	const { data: tutor }: { data: TutorProfile } = await tutorRes.json();
 
-	// Calculate average rating
 	const averageRating =
 		tutor?.user.tutorReviews.length > 0
 			? (
@@ -69,59 +64,71 @@ const TutorDetailsPage = async ({ params }: Props) => {
 			: "0.0";
 
 	return (
-		<div className="min-h-[calc(100vh-15rem)] px-64 py-28 space-y-12">
+		/* Responsive padding: fluid from mobile to desktop */
+		<div className="min-h-[calc(100vh-15rem)] px-6 md:px-12 lg:px-24 xl:px-48 2xl:px-64 py-16 md:py-28 space-y-12">
 			{tutor ? (
 				<>
-					{/* Tutor Info */}
-					<div className="max-w-lg mx-auto flex flex-col md:flex-row gap-5 items-center md:items-start md:justify-center px-7 py-8 bg-zinc-900/50 border border-zinc-800/60 rounded-4xl shadow-md shadow-zinc-950/50">
+					{/* Tutor Info Card - Responsive width and stacking */}
+					<div className="max-w-3xl mx-auto flex flex-col md:flex-row gap-6 md:gap-8 items-center md:items-start p-6 md:p-10 bg-zinc-900/50 border border-zinc-800/60 rounded-[2rem] md:rounded-4xl shadow-xl">
 						{/* Profile Picture */}
-						<Avatar
-							size="lg"
-							className="size-18 rounded-xl"
-						>
+						<Avatar className="size-24 md:size-32 rounded-2xl md:rounded-3xl border-2 border-primary-600/30 p-1 bg-zinc-800 shrink-0">
 							<Avatar.Image
 								src={tutor.user.image}
-								alt={`${tutor.user.name} profile picture`}
+								alt={`${tutor.user.name} profile`}
 								referrerPolicy="no-referrer"
 							/>
 						</Avatar>
-						<div className="flex-1">
+
+						<div className="flex-1 text-center md:text-left">
 							{/* Name */}
-							<h1 className="text-[28px] font-bold tracking-wide leading-[1.3] text-zinc-100">
+							<h1 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-100">
 								{tutor.user.name}
 							</h1>
 							{/* Designation */}
-							<p className="mt-1 text-zinc-300 text-[19px] tracking-wide">
+							<p className="mt-2 text-primary-400 text-lg md:text-xl font-medium">
 								{tutor.designation}
 							</p>
 							{/* Bio */}
-							<p className="mt-3.5 text-zinc-300">{tutor.bio}</p>
+							<p className="mt-4 text-zinc-400 leading-relaxed text-sm md:text-base italic">
+								&quot;{tutor.bio}&quot;
+							</p>
+
 							{/* Categories */}
-							<div className="mt-5 flex flex-wrap gap-2">
+							<div className="mt-6 flex flex-wrap justify-center md:justify-start gap-2">
 								{tutor.tutorCategories.map((tc) => (
 									<Chip
 										key={tc.category.slug}
 										variant="soft"
-										className="bg-primary-500/15 px-3 text-[15px] h-7 text-primary-400  hover:bg-primary-500/20 transition-colors duration-200 cursor-default"
+										className="bg-primary-500/10 text-primary-400 border border-primary-500/20"
 									>
 										{tc.category.name}
 									</Chip>
 								))}
 							</div>
-							<div className="mt-5 -ml-1 flex items-center gap-6 text-[17px] text-zinc-300">
-								{/* Hourly Rate */}
-								<div className="flex items-center gap-1">
-									<TbCurrencyDollar size={22} />
-									<span>{tutor.hourlyRate}/hr</span>
+
+							{/* Stats Bar */}
+							<div className="mt-8 flex flex-wrap justify-center md:justify-start gap-6 text-sm md:text-base text-zinc-300 border-t border-zinc-800 pt-6">
+								<div className="flex items-center gap-1.5">
+									<TbCurrencyDollar
+										className="text-primary-500"
+										size={20}
+									/>
+									<span className="font-semibold">
+										${tutor.hourlyRate}/hr
+									</span>
 								</div>
-								{/* Average Rating */}
-								<div className="flex items-center gap-2">
-									<TbStar size={22} />
-									<span>{averageRating}</span>
+								<div className="flex items-center gap-1.5">
+									<TbStar
+										className="text-yellow-500"
+										size={20}
+									/>
+									<span className="font-semibold">{averageRating}</span>
 								</div>
-								{/* Reviews Count */}
-								<div className="flex items-center gap-2">
-									<TbMessage2Star size={22} />
+								<div className="flex items-center gap-1.5">
+									<TbMessage2Star
+										className="text-blue-500"
+										size={20}
+									/>
 									<span>
 										{tutor.user.tutorReviews.length}{" "}
 										{tutor.user.tutorReviews.length !== 1
@@ -132,30 +139,44 @@ const TutorDetailsPage = async ({ params }: Props) => {
 							</div>
 						</div>
 					</div>
-					{/* Create Booking Form */}
-					<CreateBookingForm
-						student={user}
-						tutorId={tutor.user.id}
-					/>
-					{/* Add Review Form */}
-					<AddReviewForm
-						student={user}
-						tutorId={tutor.user.id}
-					/>
-					{/* Reviews */}
-					<div className="max-w-sm mx-auto space-y-3">
-						{tutor.user.tutorReviews.map((review: Review) => (
-							<ReviewCard
-								key={review.id}
-								review={review}
-							/>
-						))}
+
+					{/* Forms Section - Centered and max-width restricted for readability */}
+					<div className="max-w-2xl mx-auto space-y-12">
+						<CreateBookingForm
+							student={user}
+							tutorId={tutor.user.id}
+						/>
+						<AddReviewForm
+							student={user}
+							tutorId={tutor.user.id}
+						/>
+					</div>
+
+					{/* Reviews List */}
+					<div className="max-w-2xl mx-auto">
+						<h3 className="text-2xl font-bold text-zinc-100 mb-6 text-center md:text-left">
+							Student Feedback
+						</h3>
+						<div className="space-y-4">
+							{tutor.user.tutorReviews.length > 0 ? (
+								tutor.user.tutorReviews.map((review: Review) => (
+									<ReviewCard
+										key={review.id}
+										review={review}
+									/>
+								))
+							) : (
+								<p className="text-center text-zinc-500 italic">
+									No reviews yet for this tutor.
+								</p>
+							)}
+						</div>
 					</div>
 				</>
 			) : (
-				<div className="max-w-md mx-auto flex items-center justify-center px-5 h-40 border border-zinc-800/60 rounded-3xl">
-					<span className="text-lg text-zinc-400">
-						The tutor you&apos;re looking for cannot be found.
+				<div className="max-w-md mx-auto flex items-center justify-center p-10 border border-dashed border-zinc-800 rounded-3xl">
+					<span className="text-lg text-zinc-500 text-center">
+						Tutor profile not found.
 					</span>
 				</div>
 			)}
