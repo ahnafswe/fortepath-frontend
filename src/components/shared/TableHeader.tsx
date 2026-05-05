@@ -1,6 +1,6 @@
 export const TableHeader = ({ cols }: { cols: string[] }) => {
 	return (
-		<div className="bg-zinc-900 flex items-center rounded-t-2xl">
+		<div className="bg-[#151417] flex items-center rounded-t-2xl">
 			{cols.map((col, idx) => (
 				<div
 					key={idx}

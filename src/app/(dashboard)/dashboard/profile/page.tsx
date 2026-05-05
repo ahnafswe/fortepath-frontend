@@ -7,7 +7,7 @@ const StudentProfile = async () => {
 	const { session, user } = await sessionData;
 
 	return (
-		<div className="p-8 flex-1 min-h-screen grid place-items-center">
+		<div className="p-8  grid place-items-center">
 			{/* Profile Card */}
 			<div className="min-w-sm p-6 bg-primary-600/10 border border-primary-700 rounded-2xl">
 				{/* Profile Picture */}

@@ -3,9 +3,15 @@
 import { authClient, signInWithGoogle } from "@/lib/auth-client";
 import { Button, Form, Label, Radio, RadioGroup } from "@heroui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { TbBrandGoogle } from "react-icons/tb";
+
+type Category = {
+	id: string;
+	name: string;
+	description: string;
+};
 
 type FormFields = {
 	name: string;
@@ -15,6 +21,7 @@ type FormFields = {
 	designation?: string;
 	bio?: string;
 	hourlyRate?: number;
+	categoryIds: string[];
 };
 
 const SignupPage = () => {
@@ -24,6 +31,17 @@ const SignupPage = () => {
 	// General states
 	const [isLoading, setIsLoading] = useState(false);
 	const [role, setRole] = useState<"STUDENT" | "TUTOR">("STUDENT");
+	const [categories, setCategories] = useState<Category[]>([]);
+
+	// Fetch categories on mount
+	useEffect(() => {
+		const fetchCategories = async () => {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories`);
+			const data = await res.json();
+			setCategories(data.data);
+		};
+		fetchCategories();
+	}, []);
 
 	// Form states
 	const {
@@ -34,10 +52,8 @@ const SignupPage = () => {
 
 	// Handler for email-password signup
 	const handleSignup = async (fields: FormFields) => {
-		// Start loading
 		setIsLoading(true);
 
-		// Create user
 		const userRes = await authClient.signUp.email({
 			email: fields.email,
 			password: fields.password,
@@ -46,33 +62,29 @@ const SignupPage = () => {
 			role,
 		});
 
-		// Extract created user data
 		const user = userRes.data?.user;
 
-		// If role is Tutor, create tutor profile
-		if (role === "TUTOR") {
+		if (role === "TUTOR" && user) {
 			await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
-					userId: user?.id,
+					userId: user.id,
 					designation: fields.designation,
 					bio: fields.bio,
 					hourlyRate: Number(fields.hourlyRate),
+					categoryIds: fields.categoryIds,
 				}),
 			});
 		}
 
-		// End loading
 		setIsLoading(false);
-
-		// Redirect to Login page
 		router.push("/auth/login");
 	};
 
 	return (
-		<div className="h-screen flex items-center justify-center py-24">
-			<div className="w-full max-w-lg bg-zinc-900/60 border border-zinc-800 rounded-3xl p-7">
+		<div className="min-h-screen flex items-center justify-center py-24">
+			<div className="w-full max-w-lg bg-[#151417]/60 border border-zinc-800 rounded-3xl p-7">
 				<h1 className="text-[27px] leading-[1.33] font-bold text-primary-100 text-center mb-4">
 					Create Your Account
 				</h1>
@@ -243,6 +255,38 @@ const SignupPage = () => {
 								{errors.bio && (
 									<p className="text-sm text-red-400 tracking-wide mt-1">
 										{errors.bio.message}
+									</p>
+								)}
+							</div>
+							{/* Categories */}
+							<div className="space-y-2">
+								<label className="font-medium text-zinc-300">Categories</label>
+								<div className="grid grid-cols-2 gap-2 p-1">
+									{categories.map((category) => (
+										<label
+											key={category.id}
+											className="flex items-center gap-2 cursor-pointer group"
+										>
+											<input
+												type="checkbox"
+												value={category.id}
+												className="size-3"
+												{...register("categoryIds", {
+													required: "One category is required",
+												})}
+											/>
+											<span
+												className="text-zinc-400 group-hover:text-zinc-200 transition"
+												title={category.description}
+											>
+												{category.name}
+											</span>
+										</label>
+									))}
+								</div>
+								{errors.categoryIds && (
+									<p className="text-sm text-red-400 mt-1">
+										{errors.categoryIds.message}
 									</p>
 								)}
 							</div>

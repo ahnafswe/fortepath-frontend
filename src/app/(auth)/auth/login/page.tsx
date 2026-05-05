@@ -52,7 +52,7 @@ const LoginPage = () => {
 
 	return (
 		<div className="h-screen flex items-center justify-center py-24">
-			<div className="w-full max-w-lg bg-zinc-900/60 border border-zinc-800 rounded-3xl p-7">
+			<div className="w-full max-w-lg bg-[#151417]/60 border border-zinc-800 rounded-3xl p-7">
 				{/* Header */}
 				<h1 className="text-[27px] leading-[1.33] font-bold text-primary-100 text-center mb-4">
 					Welcome Back

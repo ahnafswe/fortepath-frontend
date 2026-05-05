@@ -15,16 +15,16 @@ export const Features = () => {
 				</p>
 			</div>
 			{/* Features */}
-			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{features.map((feature, idx) => {
 					const Icon = feature.icon;
 					return (
 						<div
 							key={idx}
-							className="group rounded-3xl bg-zinc-900 border border-primary-950 p-6 transition hover:border-primary-900"
+							className="group rounded-3xl bg-[#151417] border border-zinc-800 p-6 transition hover:border-primary-900"
 						>
 							{/* Icon */}
-							<div className="size-11 grid place-items-center rounded-lg bg-purple-900 text-purple-300 mb-4 transition group-hover:bg-purple-800 group-hover:text-purple-200">
+							<div className="size-12 grid place-items-center rounded-xl bg-purple-900 text-purple-300 mb-4 transition group-hover:bg-purple-800 group-hover:text-purple-200">
 								<Icon size={28} />
 							</div>
 

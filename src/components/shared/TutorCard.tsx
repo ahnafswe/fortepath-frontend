@@ -24,7 +24,7 @@ export const TutorCard = ({ tutor }: { tutor: Tutor }) => {
 			href={`/tutors/${tutor.id}`}
 			target="_blank"
 		>
-			<div className="bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-5 hover:border-primary-700 transition">
+			<div className="bg-[#151417] border border-zinc-800 rounded-2xl px-4 py-5 hover:border-primary-700 transition">
 				<div className="flex items-center gap-3 mb-4 group">
 					{/* Profile Picture */}
 					<Avatar>

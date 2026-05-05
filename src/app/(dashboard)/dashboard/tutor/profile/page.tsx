@@ -16,7 +16,7 @@ const TutorProfile = async () => {
 	const { data: tutor } = await tutorRes.json();
 
 	return (
-		<div className="p-8 flex-1 min-h-screen grid place-items-center">
+		<div className="p-8  grid place-items-center">
 			{/* Profile Card */}
 			<div className="w-sm p-6 bg-primary-600/10 border border-primary-700 rounded-[calc(var(--radius)*2.5)]">
 				{/* Profile Picture */}

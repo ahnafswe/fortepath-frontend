@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { TbLoader2 } from "react-icons/tb";
 
 // Category type
 type Category = {
 	name: string;
 	slug: string;
+	description?: string;
 };
 
 export const Categories = () => {
@@ -19,7 +21,6 @@ export const Categories = () => {
 				`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories?page=1&limit=12`,
 			);
 			const resJson = await res.json();
-			console.log(resJson);
 			setCategories(resJson.data);
 		} catch (err) {
 			console.error("Unable to fetch categories:", err);
@@ -46,19 +47,24 @@ export const Categories = () => {
 			</div>
 			{/* Categories */}
 			{loading ? (
-				<div className="text-center text-2xl font-semibold text-zinc-300">
-					Loading ...
+				<div className="h-64 flex items-center justify-center">
+					<TbLoader2
+						size={48}
+						className="text-primary-500 animate-spin"
+					/>
 				</div>
 			) : (
-				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
 					{categories.map((category) => (
 						<div
 							key={category.slug}
-							className="group cursor-default rounded-full border border-zinc-700 bg-zinc-900 p-4 text-center transition duration-200 hover:border-primary-900 hover:bg-zinc-900/65"
+							className="group cursor-default rounded-2xl border border-zinc-800 bg-[#151417] p-4 text-center transition duration-200 hover:border-primary-900"
 						>
 							<h3 className="text-xl font-semibold text-zinc-200 group-hover:text-primary-200 transition duration-200">
 								{category.name}
 							</h3>
+
+							<p className="mt-1 text-zinc-400 text-sm">{category.description}</p>
 						</div>
 					))}
 				</div>

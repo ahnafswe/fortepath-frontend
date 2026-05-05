@@ -1,5 +1,6 @@
 import { TutorsFilters } from "@/components/shared/TutorsFilters";
 import { TutorsGrid } from "@/components/shared/TutorsGrid";
+import { TbLoader2 } from "react-icons/tb";
 
 export interface Tutor {
 	id: string;
@@ -65,28 +66,49 @@ const Tutors = async ({ searchParams }: Props) => {
 	const { data: categories } = await categoriesRes.json();
 
 	return (
-		<div className="min-h-[calc(100vh-15rem)] px-64 py-24">
-			<div className="mb-12 text-center">
-				<h1 className="text-3xl md:text-4xl font-bold text-primary-100">
+		<div className="min-h-[calc(100vh-15rem)] px-6 md:px-12 lg:px-24 xl:px-48 2xl:px-80 py-20 md:py-32">
+			<div className="mb-8 md:mb-12 text-center px-4">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-100 tracking-tight">
 					Browse Tutors
 				</h1>
-				<p className="mt-3 text-zinc-300">
-					Discover experienced tutors and book dedicated learning sessions.
+				<p className="mt-4 text-zinc-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+					Discover experienced tutors and book dedicated learning sessions. Expert
+					guidance is just a few clicks away.
 				</p>
-				<p className="mt-3 text-zinc-400">
-					Showing <span className="text-primary-300/70">{totalTutors}</span> tutors
-				</p>
+				<div className="mt-6">
+					<p className="inline-block px-4 py-1 rounded-full bg-primary-900/20 border border-primary-800/30 text-xs md:text-sm text-zinc-300">
+						Showing{" "}
+						<span className="text-primary-400 font-semibold">{totalTutors}</span>{" "}
+						available tutors
+					</p>
+				</div>
 			</div>
 
-			{/* Filters */}
-			<TutorsFilters
-				initialSearch={search}
-				initialCategory={category}
-				categories={categories}
-			/>
+			{!tutors || !categories ? (
+				<div className="flex flex-col items-center justify-center h-64 gap-4">
+					<TbLoader2
+						size={48}
+						className="text-primary-600 animate-spin"
+					/>
+					<p className="text-zinc-500 animate-pulse">Loading mentors...</p>
+				</div>
+			) : (
+				<div className="space-y-10">
+					{/* Filters Section */}
+					<div>
+						<TutorsFilters
+							initialSearch={search}
+							initialCategory={category}
+							categories={categories}
+						/>
+					</div>
 
-			{/* Data Grid */}
-			<TutorsGrid tutors={tutors} />
+					{/* Data Grid Section */}
+					<div className="w-full">
+						<TutorsGrid tutors={tutors} />
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

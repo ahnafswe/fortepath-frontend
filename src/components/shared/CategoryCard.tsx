@@ -4,7 +4,7 @@ export const CategoryCard = ({ category }: { category: Category }) => {
 	return (
 		<div
 			key={category.slug}
-			className="group cursor-default rounded-[1.25rem] border border-zinc-700 bg-zinc-900 p-4 text-center transition duration-200 hover:border-primary-900 hover:bg-zinc-900/65"
+			className="group cursor-default rounded-[1.25rem] border border-zinc-700 bg-[#151417] p-4 text-center transition duration-200 hover:border-primary-900 hover:bg-zinc-900/65"
 		>
 			{/* Name */}
 			<h5 className="mb-1 text-xl font-semibold text-zinc-200 group-hover:text-primary-200 transition duration-200">

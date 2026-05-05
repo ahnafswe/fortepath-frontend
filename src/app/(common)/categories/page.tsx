@@ -18,24 +18,29 @@ const CategoriesPage = async () => {
 	const { total: totalCategories, data: categories } = await categoriesRes.json();
 
 	return (
-		<div className="min-h-[calc(100vh-15rem)] px-64 py-24">
-			<div className="mb-10 text-center">
+		<div className="min-h-[calc(100vh-15rem)] px-6 md:px-12 lg:px-24 xl:px-48 2xl:px-64 py-20 md:py-32">
+			<div className="mb-12 text-center px-4">
 				{/* Header */}
-				<h1 className="text-3xl md:text-4xl font-bold text-primary-100">
+				<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-100 tracking-tight">
 					Explore Categories
 				</h1>
 				{/* Subtext */}
-				<p className="mt-3 text-zinc-300">
-					Discover various learning categories that tutors are expert in.
+				<p className="mt-4 text-zinc-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+					Discover various learning categories that our expert tutors specialize in.
+					Find the perfect niche for your learning journey.
 				</p>
-				{/* Categories Count */}
-				<p className="mt-3 text-zinc-400">
-					Showing <span className="text-primary-300/70">{totalCategories}</span>{" "}
-					categories
-				</p>
+				{/* Categories Count Badge */}
+				<div className="mt-6">
+					<p className="inline-block px-4 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs md:text-sm text-zinc-400">
+						Showing{" "}
+						<span className="text-primary-400 font-medium">{totalCategories}</span>{" "}
+						unique categories
+					</p>
+				</div>
 			</div>
+
 			{/* Categories Grid */}
-			<div className="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+			<div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{categories.map((category: Category) => (
 					<CategoryCard
 						key={category.slug}

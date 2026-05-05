@@ -17,7 +17,7 @@ export const Process = () => {
 				</div>
 				{/* Steps */}
 				<div className="relative">
-					{/* Steps' Connector */}
+					{/* Steps Connector */}
 					<div className="hidden md:block absolute top-1/2 -translate-1/2 left-1/2 w-9/10 h-0.5 bg-primary-700" />
 					{/* Steps Grid */}
 					<div className="relative grid md:grid-cols-3 gap-10">
@@ -27,7 +27,7 @@ export const Process = () => {
 								// Step Card
 								<div
 									key={idx}
-									className="bg-zinc-900 rounded-3xl p-5 text-center border border-primary-950 hover:border-primary-900 transition duration-200 group"
+									className="bg-[#151417] rounded-3xl p-5 text-center border border-zinc-800 hover:border-primary-900 transition duration-200 group"
 								>
 									{/* Icon */}
 									<div className="relative z-10 mx-auto grid place-items-center size-14 rounded-full bg-primary-700 group-hover:bg-primary-600 text-white shadow-md transition duration-200">

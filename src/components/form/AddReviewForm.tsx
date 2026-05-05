@@ -76,7 +76,7 @@ export const AddReviewForm = ({
 				>
 					<Label>Rating</Label>
 					<Slider.Output />
-					<Slider.Track className="bg-zinc-900">
+					<Slider.Track className="bg-[#151417]">
 						<Slider.Fill />
 						<Slider.Thumb />
 					</Slider.Track>
@@ -85,7 +85,7 @@ export const AddReviewForm = ({
 				<div>
 					<textarea
 						placeholder="Feedback (Opt.)"
-						className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-600 resize-none"
+						className="w-full px-3 py-2 rounded-xl bg-[#151417] border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-600 resize-none"
 						rows={4}
 						{...register("feedback", {
 							maxLength: {

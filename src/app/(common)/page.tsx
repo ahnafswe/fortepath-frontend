@@ -7,7 +7,7 @@ import { Trust } from "@/components/home/Trust";
 
 export default function Home() {
 	return (
-		<main className="px-80 py-28">
+		<main className="px-6 md:px-12 lg:px-24 xl:px-48 2xl:px-80 py-16 md:py-28 overflow-x-hidden">
 			<Hero />
 			<Features />
 			<Categories />

@@ -78,7 +78,7 @@ export const CreateBookingForm = ({
 					<input
 						type="text"
 						placeholder="Topic"
-						className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
+						className="w-full px-3 py-1.5 rounded-[10px] bg-[#151417] border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
 						{...register("topic", {
 							required: "Topic is required",
 							maxLength: {
@@ -97,7 +97,7 @@ export const CreateBookingForm = ({
 				<div>
 					<input
 						type="date"
-						className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-900 text-zinc-200 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
+						className="w-full px-3 py-1.5 rounded-[10px] bg-[#151417] text-zinc-200 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
 						{...register("dueDate", {
 							required: "Due Date is required",
 						})}
@@ -112,7 +112,7 @@ export const CreateBookingForm = ({
 				<div>
 					<input
 						type="time"
-						className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-900 text-zinc-200 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
+						className="w-full px-3 py-1.5 rounded-[10px] bg-[#151417] text-zinc-200 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
 						{...register("dueTime", {
 							required: "Due Time is required",
 						})}
@@ -131,7 +131,7 @@ export const CreateBookingForm = ({
 						step={5}
 						max={180}
 						placeholder="Duration (mins)"
-						className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
+						className="w-full px-3 py-1.5 rounded-[10px] bg-[#151417] border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-700"
 						{...register("duration", {
 							required: "Duration is required",
 							min: {
@@ -154,7 +154,7 @@ export const CreateBookingForm = ({
 				<div>
 					<textarea
 						placeholder="Notes (Opt.)"
-						className="w-full px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-600 resize-none"
+						className="w-full px-3 py-2 rounded-xl bg-[#151417] border border-zinc-800 focus:outline-none focus:ring focus:ring-primary-600 resize-none"
 						rows={3}
 						{...register("notes", {
 							maxLength: {

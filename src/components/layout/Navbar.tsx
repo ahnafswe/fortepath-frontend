@@ -5,74 +5,69 @@ import { getServerSession } from "@/lib/utils";
 import { Logout } from "./Logout";
 
 export const Navbar = async () => {
-	// Get user from session
 	const sessionData = await getServerSession();
 	const user = sessionData?.user;
+
 	return (
-		<nav className="bg-background/75 backdrop-blur-md fixed top-0 left-0 min-w-screen w-full px-80 py-4 shadow-md shadow-black/7.5 z-50">
-			{/* Flex container */}
+		<nav className="bg-background/75 backdrop-blur-md fixed top-0 left-0 w-full px-6 md:px-12 lg:px-24 xl:px-48 2xl:px-80 py-4 shadow-md shadow-black/7.5 z-50">
 			<div className="flex items-center justify-between">
 				{/* Logo */}
 				<Link href="/">
-					<div className="flex items-center gap-3 group hover:scale-105 transition-transform duration-250">
+					<div className="flex items-center gap-2 md:gap-3 group hover:scale-105 transition-transform duration-250">
 						<Image
 							src="/logo.png"
 							alt="Logo"
-							width={40}
-							height={40}
+							width={32}
+							height={32}
+							className="md:size-10"
 						/>
-						<h3 className="text-3xl font-bold tracking-wide group-hover:text-primary-300 transition-colors duration-250">
+						<h3 className="text-xl md:text-3xl font-bold tracking-wide group-hover:text-primary-300 transition-colors duration-250">
 							FortePath
 						</h3>
 					</div>
 				</Link>
-				{/* Desktop Links */}
-				<div className="flex items-center gap-3 text-lg">
+
+				{/* Desktop Links - Hidden on mobile/tablet */}
+				<div className="hidden lg:flex items-center gap-3 text-lg">
 					<Link
 						href="/"
-						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 active:text-primary-500 active:bg-primary-900/25 transition-colors duration-250"
+						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 transition-colors duration-250"
 					>
 						Home
 					</Link>
 					<Link
 						href="/tutors"
-						target="_blank"
-						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 active:text-primary-500 active:bg-primary-900/25 transition-colors duration-250"
+						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 transition-colors duration-250"
 					>
 						Tutors
 					</Link>
 					<Link
 						href="/categories"
-						target="_blank"
-						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 active:text-primary-500 active:bg-primary-900/25 transition-colors duration-250"
+						className="px-3 py-1.5 rounded-lg hover:text-primary-400 hover:bg-primary-900/20 transition-colors duration-250"
 					>
 						Categories
 					</Link>
 				</div>
-				{/* CTA Buttons / User Image */}
-				<div className="flex items-center gap-3">
+
+				{/* Auth Buttons / User */}
+				<div className="flex items-center gap-2 md:gap-3">
 					{!user ? (
 						<>
-							<Link
-								href="/auth/signup"
-								className="rounded-full"
-							>
+							<Link href="/auth/signup">
 								<Button
 									variant="primary"
-									className="bg-primary-600 text-[17px] active:opacity-90 transition-all duration-200"
-									size="lg"
+									className="bg-primary-600 text-sm md:text-[17px] h-9 md:h-12 transition-all duration-200"
 								>
 									Sign Up
 								</Button>
 							</Link>
 							<Link
 								href="/auth/login"
-								className="rounded-full"
+								className="hidden sm:block"
 							>
 								<Button
 									variant="outline"
-									className="border-primary-600 text-primary-500 text-[17px] hover:bg-primary-600 active:bg-primary-600 hover:text-foreground active:text-foreground transition-all duration-200"
-									size="lg"
+									className="border-primary-600 text-primary-500 text-sm md:text-[17px] h-9 md:h-12 transition-all duration-200"
 								>
 									Login
 								</Button>
@@ -81,7 +76,7 @@ export const Navbar = async () => {
 					) : (
 						<Dropdown>
 							<Dropdown.Trigger>
-								<Avatar>
+								<Avatar className="cursor-pointer">
 									<Avatar.Image
 										src={user.image}
 										alt="User Image"
@@ -89,7 +84,7 @@ export const Navbar = async () => {
 									/>
 								</Avatar>
 							</Dropdown.Trigger>
-							<Dropdown.Popover className="bg-zinc-900 rounded-2xl">
+							<Dropdown.Popover className="bg-[#151417] rounded-2xl">
 								<Dropdown.Menu>
 									{user.role !== "ADMIN" && (
 										<Dropdown.Item

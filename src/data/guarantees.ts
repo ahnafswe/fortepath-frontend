@@ -10,7 +10,7 @@ export const guarantees = [
 	{
 		title: "Direct Connections",
 		description:
-			"Message tutors directly to discuss your goals. No middlemen — just clear communication to find your perfect match.",
+			"Message tutors to discuss your goals. No middlemen, just clear communication to find your perfect match.",
 		icon: TbMessage2,
 	},
 	{

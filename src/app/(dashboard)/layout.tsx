@@ -13,7 +13,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
 			{user.role === "STUDENT" && <StudentSidebar />}
 			{user.role === "TUTOR" && <TutorSidebar />}
 			{user.role === "ADMIN" && <AdminSidebar />}
-			{children}
+			<div className="flex-1 pb-16 lg:pb-0">{children}</div>
 		</div>
 	);
 }
