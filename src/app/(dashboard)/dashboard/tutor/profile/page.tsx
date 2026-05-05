@@ -2,76 +2,79 @@ import { getServerSession } from "@/lib/utils";
 import { Avatar } from "@heroui/react";
 
 const TutorProfile = async () => {
-	// Fetch tutor
+	// Fetch tutor session data
 	const sessionData = await getServerSession();
 	const {
 		session,
 		user: { id },
 	} = await sessionData;
 
-	// Fetch tutor profile
+	// Fetch tutor profile from API
 	const tutorRes = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/tutors/${id}`, {
 		cache: "no-store",
 	});
 	const { data: tutor } = await tutorRes.json();
 
 	return (
-		<div className="p-8  grid place-items-center">
+		<div className="p-4 md:p-8 lg:p-12 min-h-[80vh] grid place-items-center">
 			{/* Profile Card */}
-			<div className="w-sm p-6 bg-primary-600/10 border border-primary-700 rounded-[calc(var(--radius)*2.5)]">
-				{/* Profile Picture */}
-				<Avatar
-					size="lg"
-					className="size-24 rounded-2xl mb-3 mx-auto"
-				>
-					<Avatar.Image
-						src={tutor.user.image}
-						alt="Profile Picture"
-						referrerPolicy="no-referrer"
-					/>
-				</Avatar>
-				{/* Name */}
-				<h2 className="text-3xl font-bold text-center mb-6">{tutor.user.name}</h2>
-				<div className="space-y-2">
-					{/* Designation */}
-					<div className="flex justify-between gap-x-4">
-						<span className="text-lg">Designation</span>
-						<span className="text-zinc-300/75">{tutor.designation}</span>
+			<div className="w-full max-w-xl p-6 md:p-10 bg-zinc-900/40 border border-primary-900/30 rounded-[2rem] shadow-2xl backdrop-blur-sm">
+				{/* Profile Header Area */}
+				<div className="flex flex-col items-center mb-8">
+					<Avatar className="size-24 md:size-32 rounded-3xl mb-4 border-2 border-primary-600 p-1 bg-zinc-800">
+						<Avatar.Image
+							src={tutor.user.image}
+							alt="Profile Picture"
+							referrerPolicy="no-referrer"
+						/>
+					</Avatar>
+					<h2 className="text-3xl md:text-4xl font-bold text-center text-primary-50">
+						{tutor.user.name}
+					</h2>
+					<span className="mt-2 px-4 py-1 rounded-full bg-primary-950 text-primary-400 text-sm font-medium border border-primary-900/50">
+						{tutor.designation}
+					</span>
+				</div>
+
+				{/* Details Grid */}
+				<div className="space-y-4 md:space-y-6">
+					<div className="grid gap-4 md:gap-2">
+						{/* Detail Row Component Style */}
+						{[
+							{ label: "Email Address", value: tutor.user.email },
+							{ label: "Hourly Rate", value: `$${tutor.hourlyRate}/hr` },
+							{
+								label: "Joined On",
+								value: new Date(tutor.createdAt).toLocaleDateString(),
+							},
+							{
+								label: "Last Login On",
+								value: new Date(session.createdAt).toLocaleDateString(),
+							},
+						].map((detail, index) => (
+							<div
+								key={index}
+								className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-2 border-b border-zinc-800/50"
+							>
+								<span className="text-zinc-500 text-sm md:text-base font-medium">
+									{detail.label}
+								</span>
+								<span className="text-zinc-200 text-sm md:text-base truncate">
+									{detail.value}
+								</span>
+							</div>
+						))}
 					</div>
-					{/* Email */}
-					<div className="flex justify-between gap-x-4">
-						<span className="text-lg">Email</span>
-						<span className="text-zinc-300/75">{tutor.user.email}</span>
-					</div>
-					{/* Hourly Rate */}
-					<div className="flex justify-between gap-x-4">
-						<span className="text-lg">Hourly Rate</span>
-						<span className="text-zinc-300/75">${tutor.hourlyRate}/hr</span>
-					</div>
-					{/* Signup Date */}
-					<div className="flex justify-between gap-x-4">
-						<span className="text-lg">Joined on</span>
-						<span
-							className="text-zinc-300/75"
-							title={new Date(tutor.createdAt).toLocaleString()}
-						>
-							{new Date(tutor.createdAt).toLocaleDateString()}
-						</span>
-					</div>
-					{/* Last Login Date */}
-					<div className="flex justify-between gap-x-4">
-						<span className="text-lg">Logged in</span>
-						<span
-							className="text-zinc-300/75"
-							title={new Date(session.createdAt).toLocaleString()}
-						>
-							{new Date(session.createdAt).toLocaleDateString()}
-						</span>
-					</div>
+
+					{/* Biography Section */}
 					{tutor.bio && (
-						<div className="mt-4">
-							<p className="text-lg mb-0.5">Biography</p>
-							<p className="text-zinc-300/75 text-[15px]">{tutor.bio}</p>
+						<div className="mt-6 p-4 rounded-2xl bg-zinc-800/30 border border-zinc-800">
+							<h4 className="text-primary-300 font-semibold mb-2 text-sm md:text-base uppercase tracking-wider">
+								Biography
+							</h4>
+							<p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+								{tutor.bio}
+							</p>
 						</div>
 					)}
 				</div>
