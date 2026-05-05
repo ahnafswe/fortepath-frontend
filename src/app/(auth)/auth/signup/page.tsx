@@ -25,15 +25,11 @@ type FormFields = {
 };
 
 const SignupPage = () => {
-	// Hooks
 	const router = useRouter();
-
-	// General states
 	const [isLoading, setIsLoading] = useState(false);
 	const [role, setRole] = useState<"STUDENT" | "TUTOR">("STUDENT");
 	const [categories, setCategories] = useState<Category[]>([]);
 
-	// Fetch categories on mount
 	useEffect(() => {
 		const fetchCategories = async () => {
 			const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/v1/categories`);
@@ -43,14 +39,12 @@ const SignupPage = () => {
 		fetchCategories();
 	}, []);
 
-	// Form states
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormFields>();
 
-	// Handler for email-password signup
 	const handleSignup = async (fields: FormFields) => {
 		setIsLoading(true);
 
@@ -83,48 +77,52 @@ const SignupPage = () => {
 	};
 
 	return (
-		<div className="min-h-screen flex items-center justify-center py-24">
-			<div className="w-full max-w-lg bg-[#151417]/60 border border-zinc-800 rounded-3xl p-7">
-				<h1 className="text-[27px] leading-[1.33] font-bold text-primary-100 text-center mb-4">
+		// min-h-screen allows for vertical growth as form fields change
+		// px-4 ensures the card doesn't hit mobile screen edges
+		<div className="min-h-screen flex items-center justify-center py-12 md:py-24 px-4">
+			<div className="w-full max-w-lg bg-[#151417]/60 border border-zinc-800 rounded-3xl p-6 md:p-8">
+				<h1 className="text-2xl md:text-[27px] leading-tight font-bold text-primary-100 text-center mb-6">
 					Create Your Account
 				</h1>
+
 				{/* Role Selection */}
 				<RadioGroup
 					value={role}
 					onChange={(v) => setRole(v as "STUDENT" | "TUTOR")}
 					orientation="horizontal"
-					className="mb-6 mx-auto w-fit"
+					className="mb-8 mx-auto w-fit"
 				>
 					<Radio value="STUDENT">
 						<Radio.Control className="bg-primary-600">
 							<Radio.Indicator />
 						</Radio.Control>
 						<Radio.Content>
-							<Label className="text-base">Student</Label>
+							<Label className="text-base cursor-pointer">Student</Label>
 						</Radio.Content>
 					</Radio>
-					<Radio value="TUTOR">
+					<Radio
+						value="TUTOR"
+						className="ml-4 md:ml-6"
+					>
 						<Radio.Control className="bg-primary-600">
 							<Radio.Indicator />
 						</Radio.Control>
 						<Radio.Content>
-							<Label className="text-base">Tutor</Label>
+							<Label className="text-base cursor-pointer">Tutor</Label>
 						</Radio.Content>
 					</Radio>
 				</RadioGroup>
 
 				<Form
 					onSubmit={handleSubmit(handleSignup)}
-					className="flex flex-col gap-3"
+					className="flex flex-col gap-4"
 				>
 					{/* General Fields */}
-
-					{/* Name */}
-					<div>
+					<div className="flex flex-col gap-1">
 						<input
 							type="text"
 							placeholder="Full Name"
-							className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
+							className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 							{...register("name", {
 								required: "Name is required",
 								maxLength: {
@@ -137,17 +135,17 @@ const SignupPage = () => {
 							})}
 						/>
 						{errors.name && (
-							<p className="text-sm text-red-400 tracking-wide mt-1">
+							<p className="text-sm text-red-400 mt-1 pl-1">
 								{errors.name.message}
 							</p>
 						)}
 					</div>
-					{/* Image */}
-					<div>
+
+					<div className="flex flex-col gap-1">
 						<input
 							type="url"
 							placeholder="Image URL (Optional)"
-							className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
+							className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 							{...register("image", {
 								maxLength: {
 									value: 255,
@@ -155,22 +153,22 @@ const SignupPage = () => {
 								},
 								pattern: {
 									value: /^(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w\-.~:?#[\]@!$&'()*+,;=]*)?$/,
-									message: "Image must be a valid URL",
+									message: "Must be a valid URL",
 								},
 							})}
 						/>
 						{errors.image && (
-							<p className="text-sm text-red-400 tracking-wide mt-1">
+							<p className="text-sm text-red-400 mt-1 pl-1">
 								{errors.image.message}
 							</p>
 						)}
 					</div>
-					{/* Email */}
-					<div>
+
+					<div className="flex flex-col gap-1">
 						<input
 							type="email"
 							placeholder="Email Address"
-							className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
+							className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 							{...register("email", {
 								required: "Email is required",
 								maxLength: {
@@ -183,17 +181,17 @@ const SignupPage = () => {
 							})}
 						/>
 						{errors.email && (
-							<p className="text-sm text-red-400 tracking-wide mt-1">
+							<p className="text-sm text-red-400 mt-1 pl-1">
 								{errors.email.message}
 							</p>
 						)}
 					</div>
-					{/* Password */}
-					<div>
+
+					<div className="flex flex-col gap-1">
 						<input
 							type="password"
 							placeholder="Password"
-							className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
+							className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 							{...register("password", {
 								required: "Password is required",
 								minLength: {
@@ -209,22 +207,20 @@ const SignupPage = () => {
 							})}
 						/>
 						{errors.password && (
-							<p className="text-sm text-red-400 tracking-wide mt-1">
+							<p className="text-sm text-red-400 mt-1 pl-1">
 								{errors.password.message}
 							</p>
 						)}
 					</div>
 
 					{/* Tutor specific Fields */}
-
 					{role === "TUTOR" && (
-						<>
-							{/* Designation */}
-							<div>
+						<div className="flex flex-col gap-4 pt-4 border-t border-zinc-800 mt-2">
+							<div className="flex flex-col gap-1">
 								<input
 									type="text"
-									placeholder="Designation"
-									className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
+									placeholder="Designation (e.g. Senior Math Tutor)"
+									className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 									{...register("designation", {
 										required: "Designation is required",
 										maxLength: {
@@ -234,17 +230,17 @@ const SignupPage = () => {
 									})}
 								/>
 								{errors.designation && (
-									<p className="text-sm text-red-400 tracking-wide mt-1">
+									<p className="text-sm text-red-400 mt-1 pl-1">
 										{errors.designation.message}
 									</p>
 								)}
 							</div>
-							{/* Bio */}
-							<div>
+
+							<div className="flex flex-col gap-1">
 								<textarea
-									placeholder="Bio (Optional)"
-									className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600 resize-none"
-									rows={4}
+									placeholder="Brief Bio"
+									className="w-full px-4 py-3 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 resize-none"
+									rows={3}
 									{...register("bio", {
 										maxLength: {
 											value: 250,
@@ -253,89 +249,80 @@ const SignupPage = () => {
 									})}
 								/>
 								{errors.bio && (
-									<p className="text-sm text-red-400 tracking-wide mt-1">
+									<p className="text-sm text-red-400 mt-1 pl-1">
 										{errors.bio.message}
 									</p>
 								)}
 							</div>
-							{/* Categories */}
-							<div className="space-y-2">
-								<label className="font-medium text-zinc-300">Categories</label>
-								<div className="grid grid-cols-2 gap-2 p-1">
+
+							<div className="space-y-3">
+								<label className="text-sm font-semibold text-zinc-400 px-1 tracking-wider">
+									Expertise Categories
+								</label>
+								<div className="grid grid-cols-2 gap-3 p-1">
 									{categories.map((category) => (
 										<label
 											key={category.id}
-											className="flex items-center gap-2 cursor-pointer group"
+											className="flex items-center gap-3 cursor-pointer group p-2 rounded-lg hover:bg-zinc-800/50 transition-colors"
 										>
 											<input
 												type="checkbox"
 												value={category.id}
-												className="size-3"
+												className="size-4 accent-primary-600"
 												{...register("categoryIds", {
-													required: "One category is required",
+													required: "Select at least one category",
 												})}
 											/>
-											<span
-												className="text-zinc-400 group-hover:text-zinc-200 transition"
-												title={category.description}
-											>
+											<span className="text-sm text-zinc-400 group-hover:text-zinc-200 transition">
 												{category.name}
 											</span>
 										</label>
 									))}
 								</div>
 								{errors.categoryIds && (
-									<p className="text-sm text-red-400 mt-1">
+									<p className="text-sm text-red-400 pl-1">
 										{errors.categoryIds.message}
 									</p>
 								)}
 							</div>
-							{/* Hourly Rate */}
-							<div>
+
+							<div className="flex flex-col gap-1">
 								<input
 									type="number"
-									placeholder="Hourly Rate"
-									className="w-full px-3 py-1.5 rounded-[10px] bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring focus:ring-primary-600"
-									min={0}
-									max={9999}
+									placeholder="Hourly Rate ($)"
+									className="w-full px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 focus:outline-none focus:ring-2 focus:ring-primary-600 transition-all"
 									{...register("hourlyRate", {
-										required: "Hourly Rate is required",
-										min: {
-											value: 0,
-											message: "Minimum 0 is required",
-										},
-										max: {
-											value: 9999,
-											message: "Maximum 9999 is allowed",
-										},
+										required: "Rate is required",
+										min: { value: 0, message: "Min 0 required" },
+										max: { value: 9999, message: "Max 9999 allowed" },
 									})}
 								/>
 								{errors.hourlyRate && (
-									<p className="text-sm text-red-400 tracking-wide mt-1">
+									<p className="text-sm text-red-400 mt-1 pl-1">
 										{errors.hourlyRate.message}
 									</p>
 								)}
 							</div>
-						</>
+						</div>
 					)}
 
 					<Button
 						type="submit"
 						fullWidth
 						isPending={isLoading}
-						className="mt-4 text-lg h-10 bg-primary-600 hover:bg-primary-600/90 transition duration-200"
+						className="mt-6 text-lg h-12 bg-primary-600 hover:bg-primary-500 transition-colors font-bold"
 					>
-						Sign Up
+						Create Account
 					</Button>
 
 					{role === "STUDENT" && (
 						<Button
 							type="button"
 							fullWidth
-							className="text-lg h-10 flex items-center gap-3 bg-primary-600 hover:bg-primary-600/90 transition duration-200"
+							className="text-lg h-12 flex items-center gap-3 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 transition-colors font-bold"
 							onClick={signInWithGoogle}
 						>
-							<TbBrandGoogle className="size-5" />
+							<TbBrandGoogle className="size-6" />
 							Continue with Google
 						</Button>
 					)}
